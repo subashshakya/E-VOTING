@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Nitish Raj\OneDrive\Desktop\New folder</_PublishTargetUrl>
+    <History>True|2022-12-16T05:21:42.9742849Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Dbstring">
+      <Value>Server=DESKTOP-O1N6BED\MSSQLSERVER1%3bDatabase=Evoting%3bUser Id=sa%3bpassword=sasa%3bTrusted_Connection=True%3bTrustServerCertificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
