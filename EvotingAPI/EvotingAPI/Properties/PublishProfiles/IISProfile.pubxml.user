@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <History>True|2022-12-16T05:18:40.5003079Z;True|2022-12-15T21:24:56.7014216+05:45;True|2022-12-15T21:17:21.9816325+05:45;True|2022-12-15T21:11:34.8224376+05:45;False|2022-12-15T21:09:29.4795258+05:45;False|2022-12-15T21:07:51.4348569+05:45;False|2022-12-15T21:05:35.5942603+05:45;True|2022-12-15T20:57:52.4374695+05:45;True|2022-12-15T20:26:40.9897212+05:45;False|2022-12-15T20:24:59.1974126+05:45;False|2022-12-15T20:23:13.1829474+05:45;True|2022-12-15T19:54:33.2546885+05:45;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Dbstring">
+      <Value>Server=DESKTOP-O1N6BED\MSSQLSERVER1%3bDatabase=Evoting%3bUser Id=sa%3bpassword=sasa%3bTrusted_Connection=True%3bTrustServerCertificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
