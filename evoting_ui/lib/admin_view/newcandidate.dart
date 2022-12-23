@@ -22,6 +22,24 @@ class _NewCandidateState extends State<NewCandidate> {
   File? partySymbol;
   String b64 = '';
 
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              backgroundColor: Colors.grey,
+              title: const Text('Alert!'),
+              content: const Text('A new Candidate has been added'),
+              actions: [
+                MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('OK'))
+              ]);
+        });
+  }
+
   Future<void> pickPartyImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -53,46 +71,46 @@ class _NewCandidateState extends State<NewCandidate> {
 
       final base64 = base64Encode(imageBytes);
 
-      print("base 64: ____$base64");
+      // print("base 64: ____$base64");
 
       setState(() {
         this.candidatePhoto = image;
         this.b64 = base64;
       });
-
       // return image;
     } on PlatformException catch (e) {
       print(e);
     }
   }
 
-  // Future<String> sendImageString() async {}
-
-  Future<http.Response> submitData() async {
-    final CandidateID = candidateID.text;
-    final CandidateName = candidateName.text;
-    // final CandidatePhoto = pickCandidateImage();
-    final PartyName = partyName.text;
-    // final PartySymbol = pickPartyImage();
-
-    // if (CandidateID.isEmpty || CandidateName.isEmpty || PartyName.isEmpty) {
-    //   return;
-    // }
-    widget.addCandidate(CandidateID, CandidateName, candidatePhoto, PartyName,
-        partySymbol, b64);
+  Future<http.Response> sendJson() async {
     return http.post(
-        Uri.parse('http://192.168.101.160:1214/api/Candidate/AddCandidate'),
+        Uri.parse('http://192.168.101.180:1214/api/Candidate/AddCandidate'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8',
         },
         body: jsonEncode(<String, String>{
-          'CandidateFirstName': CandidateName,
+          'CandidateFirstName': candidateName.text,
           'CandidateLastName': 'kupondole',
           'CandidatePhoto': b64,
-          'CandidatePartyName': PartyName,
+          'CandidatePartyName': partyName.text,
           'CandidatePartySymbol': b64
         }));
-    Navigator.of(context).pop();
+  }
+
+  void submitData() {
+    final CandidateID = candidateID.text;
+    final CandidateName = candidateName.text;
+    final PartyName = partyName.text;
+
+    if (CandidateID.isEmpty || CandidateName.isEmpty || PartyName.isEmpty) {
+      return;
+    }
+    widget.addCandidate(CandidateID, CandidateName, candidatePhoto, PartyName,
+        partySymbol, b64);
+    sendJson();
+    _showDialog();
+    Navigator.pop(context);
   }
 
   @override
@@ -108,26 +126,26 @@ class _NewCandidateState extends State<NewCandidate> {
                         InputDecoration(labelText: 'Enter Candidate ID'),
                     controller: candidateID,
                     onSubmitted: (_) => submitData()),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                     decoration:
                         InputDecoration(labelText: 'Enter Candidate Name'),
                     controller: candidateName,
                     onSubmitted: (_) => submitData()),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextField(
                   decoration: InputDecoration(labelText: 'Enter Party Name'),
                   controller: partyName,
                   onSubmitted: (_) => submitData(),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     CustomButton(
                         title: 'Candidate Image', onClick: pickCandidateImage),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     CustomButton(
                         title: 'Party Symbol', onClick: pickPartyImage),
                   ],
@@ -142,7 +160,6 @@ class _NewCandidateState extends State<NewCandidate> {
 Widget CustomButton({required String title, required VoidCallback onClick}) {
   return Container(
       width: 180,
-      // margin: const EdgeInsets.fromLTRB(20.00, 0.0, 20, 0.0),
       child: ElevatedButton(
           onPressed: onClick,
           child: Row(

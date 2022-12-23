@@ -1,14 +1,16 @@
 import 'dart:io';
 
-// import 'package:image_picker/image_picker.dart';
-
 class Candidate {
-  String candidateID;
-  String candidateName;
-  File? candidateImage;
+  String candidateFirstName;
+  String candidateLastName;
+  File? candidatePhoto;
   String candidatePartyName;
-  File? partySymbol;
-  String test;
-  Candidate(this.candidateID, this.candidateName, this.candidateImage,
-      this.candidatePartyName, this.partySymbol, this.test);
+  File? candidatePartySymbol;
+  Candidate(
+    this.candidateFirstName,
+    this.candidateLastName,
+    this.candidatePhoto,
+    this.candidatePartyName,
+    this.candidatePartySymbol,
+  );
 }
