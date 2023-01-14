@@ -39,12 +39,12 @@ namespace EvotingAPI.Controllers
             _logger.LogInformation("Fetching complete");
             foreach(var item in list)
             {
-                //var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
-                //var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
-                item.candidatePhoto = "ok";
-                //item.candidatePhoto = getCandidatePhoto;
-                item.candidatePartySymbol = "ok";
-                //item.candidatePartySymbol = getCandidatePartySymbol;
+                var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
+                var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
+                //item.candidatePhoto = "ok";
+                item.candidatePhoto = getCandidatePhoto;
+                //item.candidatePartySymbol = "ok";
+                item.candidatePartySymbol = getCandidatePartySymbol;
             }
             
             
@@ -54,7 +54,7 @@ namespace EvotingAPI.Controllers
         [Route("AddCandidate")]
         public bool CreateCandidate([FromBody] CandidateModel model)
         {
-            string sql = @"Insert into Candidate values(@CandidateFirstName,@CandidateLastName,@CandidatePartyName)";
+            string sql = @"Insert into Candidate values(@CandidateFirstName,@CandidateLastName,@CandidatePartyName,@NominatedYear)";
             _logger.LogInformation("Adding candidate");
             var parameters = _dapperService.AddParam(model);
             var uploadCandidatePhoto = DecodeBase64String(model.candidatePhoto,"CandidatePhoto",model.candidateFirstName,model.candidateLastName);
@@ -88,7 +88,7 @@ namespace EvotingAPI.Controllers
         [Route("UpdateInfo")]
         public bool UpdateCandidateInfo([FromBody] CandidateModel model)
         {
-            string sql = @"Update Candidate set CandidateName=@candidateName , CandidatePhoto=@candidatePhoto, CandidatePartyName=@CandidatePartyName , CandidatePartySymbol=@candidatePartysymbol where CandidateId = @id";
+            string sql = @"Update Candidate set CandidateName=@candidateName , CandidatePhoto=@candidatePhoto, CandidatePartyName=@CandidatePartyName , CandidatePartySymbol=@candidatePartysymbol,year=@year where CandidateId = @id";
             _logger.LogInformation("Updating candidate");
             var parameters = _dapperService.AddParam(model);
             parameters.Add("@id", model.candidateId);
