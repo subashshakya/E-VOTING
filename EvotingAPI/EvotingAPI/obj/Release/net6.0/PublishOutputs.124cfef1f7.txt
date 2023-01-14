@@ -36,3 +36,11 @@ C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\runtimes\w
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPCtlXTypeLibNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPCtlXWrapperNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPDevNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPEngNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPGuiNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPShrNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPShrXTypeLibNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\PubTmp\Out\DPFPVerNET.dll

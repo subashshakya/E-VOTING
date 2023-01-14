@@ -52,3 +52,11 @@ C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.pdb
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.genruntimeconfig.cache
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\ref\EvotingAPI.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\Dapper.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPCtlXTypeLibNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPCtlXWrapperNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPDevNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPEngNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPGuiNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPShrNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPShrXTypeLibNET.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPFPVerNET.dll

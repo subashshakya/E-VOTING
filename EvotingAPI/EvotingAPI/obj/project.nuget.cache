@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WEB8WfzVYte/W7nJO2wwgaSuj/zFidOSxzkjzWQuZvodN/EcqWR48V68DesxLngnSzt0vRp/U3GaxD5aqMZKCA==",
+  "dgSpecHash": "LWmgFj2QDIYUR1WEVf7akQ3uzYkKVwr663560kObB5wIioBRiaWbsuaCKr8JndF7z0n2EmlPZDacX5btqFZl4Q==",
   "success": true,
   "projectFilePath": "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Nitish Raj\\.nuget\\packages\\lacuna.neurotec.client\\2.2.2\\lacuna.neurotec.client.2.2.2.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.extensions.configuration\\2.0.0\\microsoft.extensions.configuration.2.0.0.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
@@ -23,6 +24,8 @@
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\Nitish Raj\\.nuget\\packages\\neuro.core\\10.0.169753.1\\neuro.core.10.0.169753.1.nupkg.sha512",
+    "C:\\Users\\Nitish Raj\\.nuget\\packages\\neurotec.biometrics\\11.2.20200212\\neurotec.biometrics.11.2.20200212.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Nitish Raj\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
