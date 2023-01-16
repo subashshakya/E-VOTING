@@ -3,7 +3,7 @@
     public class VoteCountModel
     {
         public int CandidateId { get; set; }
-        public int VoteCount { get; set; }
-        public string Year { get; set; }
+        public int VoteReceived { get; set; }
+        public string NominatedYear { get; set; }
     }
 }

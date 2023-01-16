@@ -11,6 +11,7 @@ namespace EvotingAPI
         List<T> Query<T>(string sql, DynamicParameters param);
         Task<List<T>> QueryAsync<T>(string sql, DynamicParameters param);
         int Execute(string sql, DynamicParameters param);
+        int Execute(string sql);
         int SPExecute(string sql, DynamicParameters param);
         DynamicParameters AddParam(object param);
     }
@@ -98,6 +99,15 @@ namespace EvotingAPI
             {
                 con.Open();
                 return con.Execute(sql, param, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public int Execute(string sql)
+        {
+            using (var con = new SqlConnection(_connection))
+            {
+                con.Open();
+                return con.Execute(sql);
             }
         }
     }
