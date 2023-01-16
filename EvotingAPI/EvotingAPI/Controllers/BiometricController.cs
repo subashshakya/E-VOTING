@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 using System.Security.Cryptography;
 using System.Text;
 using DPCtlUruNet;
+using DPXUru;
 
 namespace EvotingAPI.Controllers
 {
@@ -43,7 +44,7 @@ namespace EvotingAPI.Controllers
             list.Add(createFMD.Data);
             list.Add(createFMD.Data);
             list.Add(createFMD.Data);
-            var result=Enrollment.CreateEnrollmentFmd(Constants.Formats.Fmd.DP_REGISTRATION, list);
+            var result = Enrollment.CreateEnrollmentFmd(Constants.Formats.Fmd.DP_REGISTRATION, list);
             var fmd = result.Data;
             var save = fmd.Bytes;
             string sql = @"Insert into fingerdata values(@finngerprint)";
@@ -58,28 +59,71 @@ namespace EvotingAPI.Controllers
             }
             return BadRequest("error");
         }
-        [HttpPost]
+        [HttpGet]
         [Route("VerifyFingerPrint")]
-        public IActionResult Verify([FromBody] string fingerprintdata)
+        public IActionResult Verify()
         {
-            byte[] decodedata = Convert.FromBase64String(fingerprintdata);
-            DataResult<Fmd> createFMD = Importer.ImportFmd(decodedata, Constants.Formats.Fmd.DP_VERIFICATION, Constants.Formats.Fmd.DP_VERIFICATION);
-            
-            string sql = @"Select finngerprint from fingerdata where id=@id ";
-            var param = _dapper.AddParam(1);
-            var result = _dapper.Query<byte[]>(sql, param).FirstOrDefault();
-            DataResult<Fmd> createFMDfromStoredData = Importer.ImportFmd(result, Constants.Formats.Fmd.DP_REGISTRATION, Constants.Formats.Fmd.DP_REGISTRATION);
-            var compareResult = Comparison.Compare(createFMD.Data, 0, createFMDfromStoredData.Data, 0);
-            if(compareResult.Score==0 || compareResult.Score<= 21474)
+            var stopWatch = new Stopwatch();
+            if (stopWatch.IsRunning)
             {
-                return Ok("Verified");
-            }
-            else if(compareResult.Score>21474 && compareResult.Score<= 2147483)
-            {
-                return BadRequest("please place your finger again");
-            }
+                var sec = stopWatch.Elapsed.Seconds;
+                _logger.LogInformation("elapsed time {0}", sec);
+                stopWatch.Stop();
+                stopWatch.Reset();
 
-            return BadRequest("Not Verified");
+            }
+            stopWatch.Start();
+            _logger.LogInformation("Verification started");
+            while (stopWatch.Elapsed.Seconds != 10)
+            {
+                var check = compareData();
+                if (check == 1)
+                {
+                    return Ok("Verified");
+                }
+                if (check == 2)
+                {
+                    return BadRequest("Not verified");
+                }
+            }
+            stopWatch.Stop();
+
+            return Ok("Timeout");
+        }
+
+        private int compareData()
+        {
+
+            string checkfingerdatasql = @"Select * from temp_fingerdata";
+            var dataToVerify = _dapper.Query<FingerPrintDataModel>(checkfingerdatasql).OrderByDescending(x => x.createdDate).FirstOrDefault();
+            if (dataToVerify != null)
+            {
+                _logger.LogInformation("stored data found");
+                byte[] decodedata = Convert.FromBase64String(dataToVerify.FingerPrint);
+                _logger.LogInformation("Creating fmd to verify");
+                DataResult<Fmd> createFMD = Importer.ImportFmd(decodedata, Constants.Formats.Fmd.DP_VERIFICATION, Constants.Formats.Fmd.DP_VERIFICATION);
+                string sql = @"Select finngerprint from fingerdata where id=@id ";
+                var param = _dapper.AddParam(1);
+                var result = _dapper.Query<byte[]>(sql, param).FirstOrDefault();
+                _logger.LogInformation("Creating fmd from stored data to verify");
+                DataResult<Fmd> createFMDfromStoredData = Importer.ImportFmd(result, Constants.Formats.Fmd.DP_REGISTRATION, Constants.Formats.Fmd.DP_REGISTRATION);
+                var compareResult = Comparison.Compare(createFMD.Data, 0, createFMDfromStoredData.Data, 0);
+                _logger.LogInformation("Comparison completed score is:{0}", compareResult.Score);
+                string deleteFingerdata = @"Truncate table temp_fingerdata";
+                _dapper.Execute(deleteFingerdata);
+                if (compareResult.Score == 0 || compareResult.Score <= 21474)
+                {
+                    return (1);
+                    _logger.LogInformation("verified");
+
+                }
+                else if (compareResult.Score > 21474)
+                {
+                    return (2);
+                }
+            }
+            return (0);
+
         }
     }
 }
