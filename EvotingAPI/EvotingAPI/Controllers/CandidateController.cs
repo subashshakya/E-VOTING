@@ -11,6 +11,7 @@ using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Reflection.Metadata;
+using Dapper;
 
 namespace EvotingAPI.Controllers
 {
