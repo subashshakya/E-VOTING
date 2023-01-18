@@ -32,18 +32,18 @@ namespace EvotingAPI.Controllers
         }
         [HttpPost]
         [Route("Fmd")]
-        public IActionResult CreateFingerprintData([FromBody] string fingerprintdata)
+        public IActionResult CreateFingerprintData([FromBody] string[] fingerprintdata)
         {
+            List<Fmd> list = new List<Fmd>();
+            foreach (var data in fingerprintdata)
+            {
+                byte[] decodeddata = Convert.FromBase64String(data);
+                DataResult<Fmd> createFMD = Importer.ImportFmd(decodeddata, Constants.Formats.Fmd.DP_PRE_REGISTRATION, Constants.Formats.Fmd.DP_PRE_REGISTRATION);
+                list.Add(createFMD.Data);
 
-            byte[] decodeddata = Convert.FromBase64String(fingerprintdata);
-            DataResult<Fmd> createFMD = Importer.ImportFmd(decodeddata, Constants.Formats.Fmd.DP_PRE_REGISTRATION, Constants.Formats.Fmd.DP_PRE_REGISTRATION);
+            }
             //var check2 = Importer.ImportFmd(decodeddata, Constants.Formats.Fmd.DP_VERIFICATION, Constants.Formats.Fmd.DP_VERIFICATION);
             //var fmd2 = check2.Data;
-            List<Fmd> list = new List<Fmd>();
-            list.Add(createFMD.Data);
-            list.Add(createFMD.Data);
-            list.Add(createFMD.Data);
-            list.Add(createFMD.Data);
             var result = Enrollment.CreateEnrollmentFmd(Constants.Formats.Fmd.DP_REGISTRATION, list);
             var fmd = result.Data;
             var save = fmd.Bytes;
