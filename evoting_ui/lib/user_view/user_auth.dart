@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'package:local_auth/local_auth.dart';
 
 class UserAuthentication extends StatefulWidget {
+  // const UserAuthentication({super.key});
+
   @override
   State<UserAuthentication> createState() => _UserAuthenticationState();
 }
@@ -38,27 +40,36 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   }
 
   Future sendVoter() async {
-    return http.post(Uri.parse(''),
+    return http.post(
+        Uri.parse(
+            'http://192.168.101.51:1214/api/VoterVerification/VerifyVoterId'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8'
         },
-        body: jsonEncode(
-            <String, String>{'CitizenShipNumber': '', 'VoterID': ''}));
+        body: jsonEncode(<String, dynamic>{
+          'VoterID': VoterID,
+          'CitizenShipNumber': CitizenshipNumber.text,
+        }));
   }
 
-  void sendData() async {
-    final citizenShipNumber;
-    final voterID;
+  Future sendData() async {
+    final String citizenShipNumber;
+    final String voterID;
 
     citizenShipNumber = CitizenshipNumber.text;
     voterID = VoterID.text;
 
     if (citizenShipNumber.isEmpty || voterID.isEmpty) return;
-    // widget.AddVoter(Voter(
-    //   citizenShipNumber,
-    //   voterID,
-    // ));
-    Navigator.of(context).pop();
+    return http.post(
+        Uri.parse(
+            'http://192.168.101.51:1214/api/VoterVerification/VerifyVoterId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json ;charset = utf8'
+        },
+        body: jsonEncode(<String, String>{
+          'VoterID': voterID,
+          'CitizenShipNumber': citizenShipNumber
+        }));
   }
 
   @override
@@ -99,7 +110,7 @@ class _UserAuthenticationState extends State<UserAuthentication> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Authenticate'))
+                      onPressed: sendData, child: const Text('Authenticate'))
                 ],
               ))),
     );

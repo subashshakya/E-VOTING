@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:evoting_ui/models/candidate_get.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './newcandidate.dart';
 import '../models/candidate.dart';
-import 'dart:io';
+import '../models/candidate_view.dart';
+
+// import 'dart:io';
 import './cadnidate_list.dart';
 import '../theme/theme_manager.dart';
 import 'package:http/http.dart' as http;
@@ -16,15 +20,16 @@ class _AdminState extends State<Admin> {
   ThemeManager _themeManager = ThemeManager();
 
   @override
-  void dispose() {
-    _themeManager.removeListener(themeListener);
-    super.dispose();
+  void initState() async {
+    _themeManager.addListener(themeListener);
+
+    super.initState();
   }
 
   @override
-  void initState() {
-    _themeManager.addListener(themeListener);
-    super.initState();
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
   }
 
   themeListener() {
@@ -33,50 +38,61 @@ class _AdminState extends State<Admin> {
     }
   }
 
-  List<Candidate> _candidates = [];
+  List<CandidateGet> _candidates = [];
+  List<CandidateView> _candidatesView = [];
 
-  void _addNewCandidate(
-      String candidateID,
-      String candidateName,
-      File candidateImage,
-      String candidatePartyName,
-      File partySymbol,
-      String test) {
-    final newCandidate = Candidate(candidateID, candidateName, candidateImage,
-        candidatePartyName, partySymbol);
+  // void _addNewCandidate(
+  //     String candidateID,
+  //     String candidateName,
+  //     File candidateImage,
+  //     String candidatePartyName,
+  //     File partySymbol,
+  //     String test) {
+  //   final newCandidate = Candidate(candidateID, candidateName, candidateImage,
+  //       candidatePartyName, partySymbol);
 
-    setState(() {
-      _candidates.add(newCandidate);
-    });
-  }
+  //   setState(() {
+  //     _candidates.add(newCandidate);
+  //   });
+  // }
 
   Future<http.Response> sendID(String id) async {
     return http.post(
-        Uri.parse('http://192.168.101.180:1214/api/Candidate/AddCandidate'),
+        Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
         headers: <String, String>{
           'Content-Type': 'application/josn; charset=utf-8',
         },
         body: jsonEncode(<String, String>{'candidateID': id}));
   }
 
-  Future<http.Response> getCandidate() async {
-    var response = await http.get(
-        Uri.parse('http://192.168.101.180:1214/api/Candidate/GetAllDetails'));
-    var jsonData = jsonDecode(response.body);
+  Future<void> getCandidate() async {
+    try {
+      final response = await http.get(Uri.parse(''));
 
-    for (var candidate in jsonData) {
-      final canidateInfo = Candidate(
-          candidate['CandidateFirstName'],
-          candidate['CandidateLastName'],
-          candidate['CandidatePhoto'],
-          candidate['CandidatePartyName'],
-          candidate['CandidatePartySymbol']);
-      // _candidates.add(canidateInfo);
+      CandidateGet? responseBody = candidateGetFromJson(response.body);
+
+      _candidates.add(responseBody);
+
+      for (var candidate in _candidates) {
+        String candidateImageStr = candidate.candidatePhoto;
+        String partyImageStr = candidate.candidatePartySymbol;
+        Uint8List candidateImageBytes = base64Decode(candidateImageStr);
+        Uint8List partyImageBytes = base64Decode(partyImageStr);
+
+        final candidateView = CandidateView(
+            candidate.candidateId,
+            candidate.candidateFirstName,
+            candidate.candidateLastName,
+            candidateImageBytes,
+            candidate.candidatePartyName,
+            partyImageBytes,
+            candidate.nominatedYear);
+
+        _candidatesView.add(candidateView);
+      }
+    } catch (e) {
+      print(e);
     }
-    setState(() {
-      _candidates = jsonData;
-    });
-    return response;
   }
 
   void _deleteCandidate(String id) {
@@ -94,7 +110,7 @@ class _AdminState extends State<Admin> {
         builder: (bCtx) {
           return GestureDetector(
             onTap: (() {}),
-            child: NewCandidate(_addNewCandidate),
+            child: NewCandidate(getCandidate),
             behavior: HitTestBehavior.opaque,
           );
         });
@@ -102,6 +118,7 @@ class _AdminState extends State<Admin> {
 
   @override
   Widget build(BuildContext context) {
+    getCandidate();
     return Scaffold(
       appBar: AppBar(
         title: const Text('ADMIN DASHBOARD'),
@@ -110,7 +127,9 @@ class _AdminState extends State<Admin> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [CandidateList(_candidates, _deleteCandidate)],
+        children: [
+          CandidateList(_candidatesView, _deleteCandidate, getCandidate)
+        ],
       )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 class ImageTest extends StatefulWidget {
   const ImageTest({super.key});
@@ -17,6 +19,11 @@ class _ImageTestState extends State<ImageTest> {
     //can be used within the try catch block
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
+    final imageFile = File(image!.path);
+
+    final imageBytes = await imageFile.readAsBytes();
+
+    final base64 = base64Encode(imageBytes);
     if (image == null) return;
 
     final imageTemp = File(image.path);

@@ -15,12 +15,13 @@ class NewCandidate extends StatefulWidget {
 }
 
 class _NewCandidateState extends State<NewCandidate> {
-  final candidateID = TextEditingController();
-  final candidateName = TextEditingController();
+  final candidateFirstName = TextEditingController();
+  final candidateLastName = TextEditingController();
   File? candidatePhoto;
   final partyName = TextEditingController();
   File? partySymbol;
-  String b64 = '';
+  String candidateImage_b64 = '';
+  String partySymbol_b64 = '';
 
   void _showDialog() {
     showDialog(
@@ -47,9 +48,13 @@ class _NewCandidateState extends State<NewCandidate> {
       if (image == null) return;
 
       final imageTemp = File(image.path);
+      print(imageTemp);
+      final imageByte = await imageTemp.readAsBytes();
+      final base64 = base64Encode(imageByte);
 
       setState(() {
         this.partySymbol = imageTemp;
+        this.partySymbol_b64 = base64;
       });
 
       // return imageTemp;
@@ -75,7 +80,7 @@ class _NewCandidateState extends State<NewCandidate> {
 
       setState(() {
         this.candidatePhoto = image;
-        this.b64 = base64;
+        this.candidateImage_b64 = base64;
       });
       // return image;
     } on PlatformException catch (e) {
@@ -83,34 +88,45 @@ class _NewCandidateState extends State<NewCandidate> {
     }
   }
 
-  Future<http.Response> sendJson() async {
-    return http.post(
-        Uri.parse('http://192.168.101.180:1214/api/Candidate/AddCandidate'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: jsonEncode(<String, String>{
-          'CandidateFirstName': candidateName.text,
-          'CandidateLastName': 'kupondole',
-          'CandidatePhoto': b64,
-          'CandidatePartyName': partyName.text,
-          'CandidatePartySymbol': b64
-        }));
+  Future sendJson() async {
+    return http
+        .post(
+            Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: jsonEncode(<String, String>{
+              'CandidateFirstName': candidateFirstName.text,
+              'CandidateLastName': candidateLastName.text,
+              'CandidatePhoto': candidateImage_b64,
+              'CandidatePartyName': partyName.text,
+              'CandidatePartySymbol': partySymbol_b64
+            }))
+        .then(
+      (value) {
+        print(value);
+      },
+    );
   }
 
   void submitData() {
-    final CandidateID = candidateID.text;
-    final CandidateName = candidateName.text;
+    final CandidateFirstName = candidateFirstName.text;
+    final CandidateLastName = candidateLastName.text;
     final PartyName = partyName.text;
 
-    if (CandidateID.isEmpty || CandidateName.isEmpty || PartyName.isEmpty) {
+    if (CandidateFirstName.isEmpty ||
+        CandidateLastName.isEmpty ||
+        PartyName.isEmpty) {
       return;
     }
-    widget.addCandidate(CandidateID, CandidateName, candidatePhoto, PartyName,
-        partySymbol, b64);
-    sendJson();
+    sendJson().then(
+      (value) {
+        widget.addCandidate(CandidateFirstName, CandidateLastName,
+            candidatePhoto, PartyName, partySymbol, candidateImage_b64);
+        Navigator.pop(context);
+      },
+    );
     _showDialog();
-    Navigator.pop(context);
   }
 
   @override
@@ -122,15 +138,15 @@ class _NewCandidateState extends State<NewCandidate> {
             child: Column(
               children: <Widget>[
                 TextField(
-                    decoration:
-                        InputDecoration(labelText: 'Enter Candidate ID'),
-                    controller: candidateID,
+                    decoration: InputDecoration(
+                        labelText: 'Enter Candidate First Name'),
+                    controller: candidateFirstName,
                     onSubmitted: (_) => submitData()),
                 const SizedBox(height: 10),
                 TextField(
                     decoration:
                         InputDecoration(labelText: 'Enter Candidate Name'),
-                    controller: candidateName,
+                    controller: candidateLastName,
                     onSubmitted: (_) => submitData()),
                 const SizedBox(height: 10),
                 TextField(

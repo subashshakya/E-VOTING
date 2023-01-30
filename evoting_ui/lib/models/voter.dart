@@ -1,7 +1,7 @@
 class Voter {
+  int voterID;
   String citizenShipNumber;
-  String voterID;
   // bool IsAuthenticated;
 
-  Voter(this.citizenShipNumber, this.voterID);
+  Voter(this.voterID, this.citizenShipNumber);
 }

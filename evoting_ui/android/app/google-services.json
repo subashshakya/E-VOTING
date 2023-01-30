@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031803797548",
+    "project_id": "e-voting-b9c2a",
+    "storage_bucket": "e-voting-b9c2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031803797548:android:9a8cf028a089c6f5219189",
+        "android_client_info": {
+          "package_name": "com.example.evoting_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031803797548-r006jm2c1d83d26khu5ini0fgv20b2q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4ZeORNrR125iHf5L1igk01Hv8zVkS_Gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031803797548-r006jm2c1d83d26khu5ini0fgv20b2q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
