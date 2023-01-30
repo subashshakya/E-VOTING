@@ -11,6 +11,7 @@ namespace EvotingAPI.Model
         public string candidatePhoto { get; set; }
         public string candidatePartyName { get; set; }
         public string candidatePartySymbol { get; set; }
-        
+        public string NominatedYear { get; set; }
+
     }
 }

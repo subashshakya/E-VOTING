@@ -44,6 +44,18 @@
               "target": "Package",
               "version": "[2.0.123, )"
             },
+            "Lacuna.Neurotec.Client": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Neuro.Core": {
+              "target": "Package",
+              "version": "[10.0.169753.1, )"
+            },
+            "Neurotec.Biometrics": {
+              "target": "Package",
+              "version": "[11.2.20200212, )"
+            },
             "Serilog.AspNetCore": {
               "target": "Package",
               "version": "[6.1.0, )"

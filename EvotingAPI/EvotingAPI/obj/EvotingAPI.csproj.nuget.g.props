@@ -18,5 +18,6 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\Nitish Raj\.nuget\packages\microsoft.extensions.apidescription.server\3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgNeuro_Core Condition=" '$(PkgNeuro_Core)' == '' ">C:\Users\Nitish Raj\.nuget\packages\neuro.core\10.0.169753.1</PkgNeuro_Core>
   </PropertyGroup>
 </Project>

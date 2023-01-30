@@ -1,3 +1,4 @@
+//using DPFP.Capture;
 using EvotingAPI;
 using Serilog;
 
@@ -18,6 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDapperService, DapperService>();
 
 var app = builder.Build();
+Console.WriteLine("Service Started!");
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

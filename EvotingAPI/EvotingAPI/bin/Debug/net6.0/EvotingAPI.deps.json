@@ -9,10 +9,17 @@
       "EvotingAPI/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.123",
+          "Lacuna.Neurotec.Client": "2.2.2",
+          "Neuro.Core": "10.0.169753.1",
+          "Neurotec.Biometrics": "11.2.20200212",
           "Serilog.AspNetCore": "6.1.0",
           "Swashbuckle.AspNetCore": "6.2.3",
           "System.Configuration.ConfigurationManager": "7.0.0",
-          "System.Data.SqlClient": "4.8.5"
+          "System.Data.SqlClient": "4.8.5",
+          "DPCtlUruNet": "1.0.0.1",
+          "DPCtlXUru": "1.0.0.1",
+          "DPUruNet": "1.0.0.1",
+          "DPXUru": "1.0.0.1"
         },
         "runtime": {
           "EvotingAPI.dll": {}
@@ -23,6 +30,42 @@
           "lib/net5.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.0.123.33578"
+          }
+        }
+      },
+      "Lacuna.Neurotec.Client/2.2.2": {
+        "runtime": {
+          "lib/netstandard2.0/Lacuna.Neurotec.Client.dll": {
+            "assemblyVersion": "2.2.2.0",
+            "fileVersion": "2.2.2.0"
+          },
+          "lib/netstandard2.0/Neurotec.Biometrics.Client.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.Biometrics.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.Devices.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.Licensing.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.Media.Processing.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.Media.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
+          },
+          "lib/netstandard2.0/Neurotec.dll": {
+            "assemblyVersion": "12.3.0.0",
+            "fileVersion": "12.3.0.0"
           }
         }
       },
@@ -127,6 +170,8 @@
           }
         }
       },
+      "Neuro.Core/10.0.169753.1": {},
+      "Neurotec.Biometrics/11.2.20200212": {},
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -421,6 +466,38 @@
             "fileVersion": "7.0.22.51805"
           }
         }
+      },
+      "DPCtlUruNet/1.0.0.1": {
+        "runtime": {
+          "DPCtlUruNet.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1115"
+          }
+        }
+      },
+      "DPCtlXUru/1.0.0.1": {
+        "runtime": {
+          "DPCtlXUru.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1115"
+          }
+        }
+      },
+      "DPUruNet/1.0.0.1": {
+        "runtime": {
+          "DPUruNet.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1115"
+          }
+        }
+      },
+      "DPXUru/1.0.0.1": {
+        "runtime": {
+          "DPXUru.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1115"
+          }
+        }
       }
     }
   },
@@ -436,6 +513,13 @@
       "sha512": "sha512-RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
+    },
+    "Lacuna.Neurotec.Client/2.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZfUe1lm+G3Op8UtMl7W3IdEd74vTU0qzQJ4EHbizdOJUTm2gYqMkXfib98oc2/x02523g0HGa+7UfEnYHcFw0Q==",
+      "path": "lacuna.neurotec.client/2.2.2",
+      "hashPath": "lacuna.neurotec.client.2.2.2.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
       "type": "package",
@@ -562,6 +646,20 @@
       "sha512": "sha512-2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ==",
       "path": "microsoft.win32.systemevents/7.0.0",
       "hashPath": "microsoft.win32.systemevents.7.0.0.nupkg.sha512"
+    },
+    "Neuro.Core/10.0.169753.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zE7xsaz733hDcq2B0m9oTCUi3jRAI2JFy37z1fSbuW6zWctW7W7KqSDuyxqt3vABkjnBl8B/IISYKjadHSLOPw==",
+      "path": "neuro.core/10.0.169753.1",
+      "hashPath": "neuro.core.10.0.169753.1.nupkg.sha512"
+    },
+    "Neurotec.Biometrics/11.2.20200212": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ztj/W+fquQqVRgYp9txxZ2835vhuDpaN/WNwdMAvvJjrUbT787IfkwCSToylyIk653MGYGUNmP5qx2peiXTZwA==",
+      "path": "neurotec.biometrics/11.2.20200212",
+      "hashPath": "neurotec.biometrics.11.2.20200212.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",
@@ -744,6 +842,26 @@
       "sha512": "sha512-bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "path": "system.windows.extensions/7.0.0",
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
+    },
+    "DPCtlUruNet/1.0.0.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DPCtlXUru/1.0.0.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DPUruNet/1.0.0.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DPXUru/1.0.0.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
