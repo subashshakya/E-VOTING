@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[2.0.123, )"
             },
+            "FlickrNet": {
+              "target": "Package",
+              "version": "[3.26.0, )"
+            },
             "Lacuna.Neurotec.Client": {
               "target": "Package",
               "version": "[2.2.2, )"

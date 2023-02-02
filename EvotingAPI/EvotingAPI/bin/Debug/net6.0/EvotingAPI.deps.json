@@ -9,6 +9,7 @@
       "EvotingAPI/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.123",
+          "FlickrNet": "3.26.0",
           "Lacuna.Neurotec.Client": "2.2.2",
           "Neuro.Core": "10.0.169753.1",
           "Neurotec.Biometrics": "11.2.20200212",
@@ -30,6 +31,14 @@
           "lib/net5.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.0.123.33578"
+          }
+        }
+      },
+      "FlickrNet/3.26.0": {
+        "runtime": {
+          "lib/net20/FlickrNet.dll": {
+            "assemblyVersion": "3.26.0.0",
+            "fileVersion": "3.26.0.0"
           }
         }
       },
@@ -513,6 +522,13 @@
       "sha512": "sha512-RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
+    },
+    "FlickrNet/3.26.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JXSl0AJwhgFzWxD2wCYNKTyRw3lKeMYjM9TZ2Srjt55gaMgJ0e68wcs7Y9d7dcWCmeVxf9E7BWYXB/Eh46jzow==",
+      "path": "flickrnet/3.26.0",
+      "hashPath": "flickrnet.3.26.0.nupkg.sha512"
     },
     "Lacuna.Neurotec.Client/2.2.2": {
       "type": "package",

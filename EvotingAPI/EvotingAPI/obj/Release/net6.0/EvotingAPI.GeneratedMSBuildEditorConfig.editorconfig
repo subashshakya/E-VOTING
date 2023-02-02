@@ -14,3 +14,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Evote\E-VOTING\EvotingAPI\EvotingAPI
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Evote/E-VOTING/EvotingAPI/EvotingAPI/Views/Biometric/GetFingerPrint.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlvbWV0cmljXEdldEZpbmdlclByaW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

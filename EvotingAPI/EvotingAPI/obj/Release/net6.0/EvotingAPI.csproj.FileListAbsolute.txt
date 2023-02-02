@@ -68,3 +68,5 @@ C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPCtlUruNet.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPCtlXUru.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPUruNet.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPXUru.xml
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.RazorAssemblyInfo.cache
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.RazorAssemblyInfo.cs

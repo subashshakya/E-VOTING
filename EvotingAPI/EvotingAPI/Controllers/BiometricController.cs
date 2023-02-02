@@ -9,14 +9,11 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
-using Neurotec.Biometrics;
-
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
 using System.Text;
 using DPCtlUruNet;
 using DPXUru;
-
 namespace EvotingAPI.Controllers
 {
     [ApiController]
@@ -47,7 +44,7 @@ namespace EvotingAPI.Controllers
             var result = Enrollment.CreateEnrollmentFmd(Constants.Formats.Fmd.DP_REGISTRATION, list);
             var fmd = result.Data;
             var save = fmd.Bytes;
-            string sql = @"Insert into fingerdata values(@finngerprint)";
+            string sql = @"Insert into fingerdata values(@finngerprint,789456)";
             DynamicParameters param = new DynamicParameters();
             param.Add("@finngerprint", save);
             var added = _dapper.Execute(sql, param);
@@ -59,9 +56,9 @@ namespace EvotingAPI.Controllers
             }
             return BadRequest("error");
         }
-        [HttpGet]
+        [HttpPost]
         [Route("VerifyFingerPrint")]
-        public IActionResult Verify()
+        public IActionResult Verify([FromBody] int VoterId)
         {
             var stopWatch = new Stopwatch();
             if (stopWatch.IsRunning)
@@ -76,7 +73,7 @@ namespace EvotingAPI.Controllers
             _logger.LogInformation("Verification started");
             while (stopWatch.Elapsed.Seconds != 10)
             {
-                var check = compareData();
+                var check = compareData(VoterId);
                 if (check == 1)
                 {
                     return Ok("Verified");
@@ -90,40 +87,63 @@ namespace EvotingAPI.Controllers
 
             return Ok("Timeout");
         }
-
-        private int compareData()
+        private int compareData(int id)
         {
+            #region oldcode
+            //string checkfingerdatasql = @"Select VoterId from temp_fingerdata where VoterId=@id ";
+            //var parameter = _dapper.AddParam(voterId);
+            //var dataToVerify = _dapper.Query<FingerPrintDataModel>(checkfingerdatasql).OrderByDescending(x => x.createdDate).FirstOrDefault();
+            //if (dataToVerify != null)
+            //{
+            //    _logger.LogInformation("stored data found");
+            //    byte[] decodedata = Convert.FromBase64String(dataToVerify.FingerPrint);
+            //    _logger.LogInformation("Creating fmd to verify");
+            //    DataResult<Fmd> createFMD = Importer.ImportFmd(decodedata, Constants.Formats.Fmd.DP_VERIFICATION, Constants.Formats.Fmd.DP_VERIFICATION);
+            //    string sql = @"Select finngerprint from fingerdata where VoterId=@id ";
+            //    var param = _dapper.AddParam(voterId);
+            //    var result = _dapper.Query<byte[]>(sql, param).FirstOrDefault();
+            //    _logger.LogInformation("Creating fmd from stored data to verify");
+            //    DataResult<Fmd> createFMDfromStoredData = Importer.ImportFmd(result, Constants.Formats.Fmd.DP_REGISTRATION, Constants.Formats.Fmd.DP_REGISTRATION);
+            //    var compareResult = Comparison.Compare(createFMD.Data, 0, createFMDfromStoredData.Data, 0);
+            //    _logger.LogInformation("Comparison completed score is:{0}", compareResult.Score);
+            //    string deleteFingerdata = @"Truncate table temp_fingerdata";
+            //    _dapper.Execute(deleteFingerdata);
+            //    if (compareResult.Score == 0 || compareResult.Score <= 21474)
+            //    {
+            //        return (1);
+            //        _logger.LogInformation("verified");
 
-            string checkfingerdatasql = @"Select * from temp_fingerdata";
-            var dataToVerify = _dapper.Query<FingerPrintDataModel>(checkfingerdatasql).OrderByDescending(x => x.createdDate).FirstOrDefault();
+            //    }
+            //    else if (compareResult.Score > 21474)
+            //    {
+            //        return (2);
+            //    }
+            //}
+            //return (0);
+            #endregion
+            string checkfingerdatasql = @"Select VoterId from temp_fingerdata where VoterId=@id ";
+            var parameter = _dapper.AddParam(id);
+            var dataToVerify = _dapper.Query<FingerPrintDataModel>(checkfingerdatasql,parameter).OrderByDescending(x => x.createdDate).FirstOrDefault();
             if (dataToVerify != null)
             {
-                _logger.LogInformation("stored data found");
-                byte[] decodedata = Convert.FromBase64String(dataToVerify.FingerPrint);
-                _logger.LogInformation("Creating fmd to verify");
-                DataResult<Fmd> createFMD = Importer.ImportFmd(decodedata, Constants.Formats.Fmd.DP_VERIFICATION, Constants.Formats.Fmd.DP_VERIFICATION);
-                string sql = @"Select finngerprint from fingerdata where id=@id ";
-                var param = _dapper.AddParam(1);
-                var result = _dapper.Query<byte[]>(sql, param).FirstOrDefault();
-                _logger.LogInformation("Creating fmd from stored data to verify");
-                DataResult<Fmd> createFMDfromStoredData = Importer.ImportFmd(result, Constants.Formats.Fmd.DP_REGISTRATION, Constants.Formats.Fmd.DP_REGISTRATION);
-                var compareResult = Comparison.Compare(createFMD.Data, 0, createFMDfromStoredData.Data, 0);
-                _logger.LogInformation("Comparison completed score is:{0}", compareResult.Score);
-                string deleteFingerdata = @"Truncate table temp_fingerdata";
-                _dapper.Execute(deleteFingerdata);
-                if (compareResult.Score == 0 || compareResult.Score <= 21474)
-                {
-                    return (1);
-                    _logger.LogInformation("verified");
-
-                }
-                else if (compareResult.Score > 21474)
-                {
-                    return (2);
-                }
+                _logger.LogInformation("Figerprint verified");
+                string deleteSql = @"delete  from temp_fingerdata where VoterId=@id";
+                _logger.LogInformation("Figerprint deleted");
+                var param = _dapper.AddParam(id);
+                var result = _dapper.Execute(deleteSql,param);
+                return (1);
             }
-            return (0);
+            else
+            {
+                return 0;
+            }
 
+        }
+        [HttpGet]
+        [Route("GetFingerPrint")]
+        public IActionResult GetFingerPrint()
+        {
+            return View();
         }
     }
 }
