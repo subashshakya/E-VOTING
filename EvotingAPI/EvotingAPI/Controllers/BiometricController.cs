@@ -44,7 +44,7 @@ namespace EvotingAPI.Controllers
             var result = Enrollment.CreateEnrollmentFmd(Constants.Formats.Fmd.DP_REGISTRATION, list);
             var fmd = result.Data;
             var save = fmd.Bytes;
-            string sql = @"Insert into fingerdata values(@finngerprint,789456)";
+            string sql = @"Insert into fingerdata values(@finngerprint,789215)";
             DynamicParameters param = new DynamicParameters();
             param.Add("@finngerprint", save);
             var added = _dapper.Execute(sql, param);
@@ -121,7 +121,7 @@ namespace EvotingAPI.Controllers
             //}
             //return (0);
             #endregion
-            string checkfingerdatasql = @"Select VoterId from temp_fingerdata where VoterId=@id ";
+            string checkfingerdatasql = @"Select VoterId from temp_fingerdata where VoterId=@id";
             var parameter = _dapper.AddParam(id);
             var dataToVerify = _dapper.Query<FingerPrintDataModel>(checkfingerdatasql,parameter).OrderByDescending(x => x.createdDate).FirstOrDefault();
             if (dataToVerify != null)
@@ -138,12 +138,6 @@ namespace EvotingAPI.Controllers
                 return 0;
             }
 
-        }
-        [HttpGet]
-        [Route("GetFingerPrint")]
-        public IActionResult GetFingerPrint()
-        {
-            return View();
         }
     }
 }
