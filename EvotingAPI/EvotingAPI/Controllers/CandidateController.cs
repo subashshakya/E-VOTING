@@ -126,17 +126,6 @@ namespace EvotingAPI.Controllers
             encodedImage = Convert.ToBase64String(filebytes);
             return encodedImage;
         }
-
-        [HttpGet]
-        [Route("Image")]
-        public void uploadImage()
-        {
-            var flickr = new Flickr("8ab969d8edbf526a6617940cfcb0acc7", "8c44175a3f8462fa");
-            var img = flickr.UploadPicture(@"C:\Evote\ev\CandidatePartySymbol\NitishRajopadhyaya.jpg");
-            Console.WriteLine("Image uploaded to Flickr: " + img);
-
-        }
-
         //private CandidateModel getCandidateById(int? id)
         //{
         //    string sql = @"Select CandidateFirstName,CandidateLastName from Candidate where CandidateId=@Id";
