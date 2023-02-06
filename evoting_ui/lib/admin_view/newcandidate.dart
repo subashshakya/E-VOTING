@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
+
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,9 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class NewCandidate extends StatefulWidget {
-  final Function addCandidate;
+  // final Function addCandidate;
 
-  NewCandidate(this.addCandidate);
+  // NewCandidate(this.addCandidate);
 
   @override
   _NewCandidateState createState() => _NewCandidateState();
@@ -22,13 +25,14 @@ class _NewCandidateState extends State<NewCandidate> {
   File? partySymbol;
   String candidateImage_b64 = '';
   String partySymbol_b64 = '';
+  bool isSubmitting = false;
 
   void _showDialog() {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.blueGrey,
               title: const Text('Alert!'),
               content: const Text('A new Candidate has been added'),
               actions: [
@@ -48,7 +52,7 @@ class _NewCandidateState extends State<NewCandidate> {
       if (image == null) return;
 
       final imageTemp = File(image.path);
-      print(imageTemp);
+      // print(imageTemp);
       final imageByte = await imageTemp.readAsBytes();
       final base64 = base64Encode(imageByte);
 
@@ -88,69 +92,100 @@ class _NewCandidateState extends State<NewCandidate> {
     }
   }
 
-  Future sendJson() async {
-    return http
-        .post(
-            Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: jsonEncode(<String, String>{
-              'CandidateFirstName': candidateFirstName.text,
-              'CandidateLastName': candidateLastName.text,
-              'CandidatePhoto': candidateImage_b64,
-              'CandidatePartyName': partyName.text,
-              'CandidatePartySymbol': partySymbol_b64
-            }))
-        .then(
-      (value) {
-        print(value);
-      },
-    );
-  }
+  // Future sendJson() async {
+  //   return http.post(
+  //       Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=utf-8',
+  //       },
+  //       body: jsonEncode(<String, String>{
+  //         'CandidateFirstName': candidateFirstName.text,
+  //         'CandidateLastName': candidateLastName.text,
+  //         'CandidatePhoto': candidateImage_b64,
+  //         'CandidatePartyName': partyName.text,
+  //         'CandidatePartySymbol': partySymbol_b64
+  //       }));
+  // }
 
-  void submitData() {
-    final CandidateFirstName = candidateFirstName.text;
-    final CandidateLastName = candidateLastName.text;
-    final PartyName = partyName.text;
+  void submitData() async {
+    setState(() {
+      isSubmitting = true;
+    });
 
-    if (CandidateFirstName.isEmpty ||
-        CandidateLastName.isEmpty ||
-        PartyName.isEmpty) {
-      return;
-    }
-    sendJson().then(
-      (value) {
-        widget.addCandidate(CandidateFirstName, CandidateLastName,
-            candidatePhoto, PartyName, partySymbol, candidateImage_b64);
-        Navigator.pop(context);
-      },
-    );
+    log(candidateImage_b64);
+
+    final response = await http.post(
+        Uri.parse('http://192.168.137.250:1214/api/Candidate/AddCandidate'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: jsonEncode(<String, String>{
+          'CandidateFirstName': candidateFirstName.text,
+          'CandidateLastName': candidateLastName.text,
+          'CandidatePhoto': candidateImage_b64,
+          'CandidatePartyName': partyName.text,
+          'CandidatePartySymbol': partySymbol_b64,
+          'nominatedYear': "2079"
+        }));
+
+    log(response.body.toString());
+    setState(() {
+      isSubmitting = false;
+    });
     _showDialog();
+    // Navigator.pop(context);
   }
+
+  // void submitData() {
+  //   final CandidateFirstName = candidateFirstName.text;
+  //   final CandidateLastName = candidateLastName.text;
+  //   final PartyName = partyName.text;
+
+  //   // if (CandidateFirstName.isEmpty ||
+  //   //     CandidateLastName.isEmpty ||
+  //   //     PartyName.isEmpty) {
+  //   //   return;
+  //   // }
+  //   sendJson().then(
+  //     (value) {
+  //       widget.addCandidate(CandidateFirstName, CandidateLastName,
+  //           candidatePhoto, PartyName, partySymbol, candidateImage_b64);
+  //       Navigator.pop(context);
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Card(
         elevation: 10,
         child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
+                const SizedBox(
+                  height: 100,
+                ),
+                const Text("Enter Candidate Details",
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 20),
                 TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Enter Candidate First Name'),
                     controller: candidateFirstName,
                     onSubmitted: (_) => submitData()),
                 const SizedBox(height: 10),
                 TextField(
-                    decoration:
-                        InputDecoration(labelText: 'Enter Candidate Name'),
+                    decoration: const InputDecoration(
+                        labelText: 'Enter Candidate Name'),
                     controller: candidateLastName,
                     onSubmitted: (_) => submitData()),
                 const SizedBox(height: 10),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Enter Party Name'),
+                  decoration:
+                      const InputDecoration(labelText: 'Enter Party Name'),
                   controller: partyName,
                   onSubmitted: (_) => submitData(),
                 ),
@@ -159,12 +194,15 @@ class _NewCandidateState extends State<NewCandidate> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(width: 5),
-                    CustomButton(
+                    customButton(
                         title: 'Candidate Image', onClick: pickCandidateImage),
                     const SizedBox(width: 15),
-                    CustomButton(
+                    customButton(
                         title: 'Party Symbol', onClick: pickPartyImage),
                   ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ElevatedButton(
                     onPressed: submitData, child: const Text('Submit'))
@@ -173,7 +211,7 @@ class _NewCandidateState extends State<NewCandidate> {
   }
 }
 
-Widget CustomButton({required String title, required VoidCallback onClick}) {
+Widget customButton({required String title, required VoidCallback onClick}) {
   return Container(
       width: 180,
       child: ElevatedButton(
@@ -181,6 +219,9 @@ Widget CustomButton({required String title, required VoidCallback onClick}) {
           child: Row(
             children: [
               const Icon(Icons.image_outlined),
+              const SizedBox(
+                width: 10,
+              ),
               Text(
                 title,
                 textAlign: TextAlign.left,
