@@ -58,6 +58,37 @@ class _VotingViewState extends State<VotingView> {
     }
   }
 
+  List<CandidateGet> _candidates = [];
+
+  Future getCandidate() async {
+    final response = await http.get(
+        Uri.parse('http://192.168.137.250:1214/api/Candidate/GetAllDetails'));
+
+    var jsonDataList = jsonDecode(response.body);
+    // print(jsonDataList.toString());
+    for (Map<String, dynamic> candidate in jsonDataList) {
+      final candidates = CandidateGet(
+          candidateId: candidate["candidateId"],
+          candidateFirstName: candidate["candidateFirstName"],
+          candidateLastName: candidate["candidateLastName"],
+          candidatePhoto: candidate["candidatePhoto"],
+          candidatePartyName: candidate["candidatePartyName"],
+          candidatePartySymbol: candidate["candidatePartySymbol"],
+          nominatedYear: candidate["nominatedYear"]);
+      setState(() {
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+        _candidates.add(candidates);
+      });
+
+      // log(_candidates.length.toString());
+    }
+  }
+
   @override
   void initState() {
     Future.delayed(Duration.zero).then((_) {
@@ -68,38 +99,42 @@ class _VotingViewState extends State<VotingView> {
 
   @override
   Widget build(BuildContext context) {
-    final candidateData =
-        Provider.of<CandidateProvider>(context, listen: false);
-    final List<CandidateGet> candidatesGet = candidateData.candidate;
-    return Scaffold(
-        appBar: AppBar(
-            title: const Text('Voting Screen', style: TextStyle(fontSize: 19))),
-        body: Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 400,
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 2 / 3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10),
-                      itemCount: candidatesGet.length,
-                      itemBuilder: (context, index) {
-                        return SelectableCandidate(
-                            candidatesGet[index].candidateFirstName,
-                            () => checkOption(index),
-                            base64Decode(
-                                candidatesGet[index].candidatePartySymbol),
-                            false);
-                      }),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(onPressed: () {}, child: const Text("Submit"))
-              ],
-            )));
+    // final candidateData =
+    //     Provider.of<CandidateProvider>(context, listen: false);
+    // final List<CandidateGet> candidatesGet = candidateData.candidate;
+    return RefreshIndicator(
+      onRefresh: getCandidate,
+      child: Scaffold(
+          appBar: AppBar(
+              title:
+                  const Text('Voting Screen', style: TextStyle(fontSize: 19))),
+          body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 400,
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 2 / 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10),
+                        itemCount: _candidates.length,
+                        itemBuilder: (context, index) {
+                          return SelectableCandidate(
+                              _candidates[index].candidateFirstName,
+                              () => checkOption(index),
+                              base64Decode(
+                                  _candidates[index].candidatePartySymbol),
+                              true);
+                        }),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(onPressed: () {}, child: const Text("Submit"))
+                ],
+              ))),
+    );
   }
 }

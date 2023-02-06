@@ -29,7 +29,7 @@ class App extends StatelessWidget {
           theme: darkTheme,
           // lightTheme: lightTheme,
           themeMode: _themeManager.themeMode,
-          home: Admin()),
+          home: VotingView()),
     );
   }
 }

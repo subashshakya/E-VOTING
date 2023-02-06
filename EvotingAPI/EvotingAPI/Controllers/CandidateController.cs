@@ -38,15 +38,15 @@ namespace EvotingAPI.Controllers
             string sql = @"Select * from Candidate";
             var list = _dapperService.Query<CandidateModel>(sql).ToList();
             _logger.LogInformation("Fetching complete");
-            foreach(var item in list)
-            {
-                var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
-                var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
-                //item.candidatePhoto = "ok";
-                item.candidatePhoto = getCandidatePhoto;
-                //item.candidatePartySymbol = "ok";
-                item.candidatePartySymbol = getCandidatePartySymbol;
-            }
+            //foreach(var item in list)
+            //{
+            //    var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
+            //    var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
+            //    //item.candidatePhoto = "ok";
+            //    item.candidatePhoto = getCandidatePhoto;
+            //    //item.candidatePartySymbol = "ok";
+            //    item.candidatePartySymbol = getCandidatePartySymbol;
+            //}
             
             
             return Ok(list);

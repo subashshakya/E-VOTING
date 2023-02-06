@@ -15,11 +15,7 @@
           "Serilog.AspNetCore": "6.1.0",
           "Swashbuckle.AspNetCore": "6.2.3",
           "System.Configuration.ConfigurationManager": "7.0.0",
-          "System.Data.SqlClient": "4.8.5",
-          "DPCtlUruNet": "1.0.0.1",
-          "DPCtlXUru": "1.0.0.1",
-          "DPUruNet": "1.0.0.1",
-          "DPXUru": "1.0.0.1"
+          "System.Data.SqlClient": "4.8.5"
         },
         "runtime": {
           "EvotingAPI.dll": {}
@@ -466,38 +462,6 @@
             "fileVersion": "7.0.22.51805"
           }
         }
-      },
-      "DPCtlUruNet/1.0.0.1": {
-        "runtime": {
-          "DPCtlUruNet.dll": {
-            "assemblyVersion": "1.0.0.1",
-            "fileVersion": "1.0.0.1115"
-          }
-        }
-      },
-      "DPCtlXUru/1.0.0.1": {
-        "runtime": {
-          "DPCtlXUru.dll": {
-            "assemblyVersion": "1.0.0.1",
-            "fileVersion": "1.0.0.1115"
-          }
-        }
-      },
-      "DPUruNet/1.0.0.1": {
-        "runtime": {
-          "DPUruNet.dll": {
-            "assemblyVersion": "1.0.0.1",
-            "fileVersion": "1.0.0.1115"
-          }
-        }
-      },
-      "DPXUru/1.0.0.1": {
-        "runtime": {
-          "DPXUru.dll": {
-            "assemblyVersion": "1.0.0.1",
-            "fileVersion": "1.0.0.1115"
-          }
-        }
       }
     }
   },
@@ -842,26 +806,6 @@
       "sha512": "sha512-bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "path": "system.windows.extensions/7.0.0",
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
-    },
-    "DPCtlUruNet/1.0.0.1": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DPCtlXUru/1.0.0.1": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DPUruNet/1.0.0.1": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "DPXUru/1.0.0.1": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

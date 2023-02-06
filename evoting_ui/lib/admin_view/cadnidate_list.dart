@@ -71,7 +71,7 @@ class _CandidateListState extends State<CandidateList> {
           nominatedYear: candidate["nominatedYear"]);
       setState(() {
         _candidates.add(candidates);
-        _candidates.add(candidates);
+        // _candidates.add(candidates);
       });
 
       log(_candidates.length.toString());
