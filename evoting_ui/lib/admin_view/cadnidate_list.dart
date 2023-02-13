@@ -29,7 +29,7 @@ class _CandidateListState extends State<CandidateList> {
 
   Future<http.Response> sendID(String id) async {
     return http.post(
-        Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
+        Uri.parse('http://192.168.101.88:1214/api/Candidate/AddCandidate'),
         headers: <String, String>{
           'Content-Type': 'application/josn; charset=utf-8',
         },
@@ -56,7 +56,7 @@ class _CandidateListState extends State<CandidateList> {
 
   Future getCandidate() async {
     final response = await http.get(
-        Uri.parse('http://192.168.137.250:1214/api/Candidate/GetAllDetails'));
+        Uri.parse('http://192.168.101.88:1214/api/Candidate/GetAllDetails'));
 
     var jsonDataList = jsonDecode(response.body);
     print(jsonDataList.toString());

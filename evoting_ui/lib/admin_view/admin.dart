@@ -1,13 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:evoting_ui/models/candidate_get.dart';
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './newcandidate.dart';
-// import '../models/candidate.dart';
-import '../models/candidate_view.dart';
 
-// import 'dart:io';
 import './cadnidate_list.dart';
 import '../theme/theme_manager.dart';
 import 'package:http/http.dart' as http;
@@ -61,7 +57,7 @@ class _AdminState extends State<Admin> {
 
   Future<http.Response> sendID(String id) async {
     return http.post(
-        Uri.parse('http://192.168.101.162:1214/api/Candidate/AddCandidate'),
+        Uri.parse('http://192.168.101.88:1214/api/Candidate/AddCandidate'),
         headers: <String, String>{
           'Content-Type': 'application/josn; charset=utf-8',
         },

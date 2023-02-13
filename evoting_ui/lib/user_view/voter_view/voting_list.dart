@@ -24,45 +24,51 @@ class _VotingViewState extends State<VotingView> {
   int optionSelected = 0;
   bool isSubmitted = false;
 
-  void checkOption(int index) {
-    setState(() {
-      optionSelected = index;
-    });
-  }
+  // Future submitId() async {
+  //   var response = await http.post(Uri.parse(''),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json ; charset=utf-8'
+  //       },
+  //       body: jsonEncode(<String, dynamic>{"candidateId": optionSelected}));
 
-  Future submitId() async {
-    var response = await http.post(Uri.parse(''),
-        headers: <String, String>{
-          'Content-Type': 'application/json ; charset=utf-8'
-        },
-        body: jsonEncode(<String, dynamic>{"candidateId": optionSelected}));
+  //   log(response.toString());
 
-    log(response.toString());
+  //   setState(() {
+  //     isSubmitted = true;
+  //   });
 
-    setState(() {
-      isSubmitted = true;
-    });
+  //   navigationToSuccess(isSubmitted, response.toString());
+  // }
 
-    navigationToSuccess(isSubmitted, response.toString());
-  }
+  // void navigationToSuccess(bool isSubmitted, String res) {
+  //   if (isSubmitted) {
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => SuccessVoting()));
+  //   } else {
+  //     Container(
+  //         child: Center(
+  //       child: Text(res),
+  //     ));
+  //   }
+  // }
 
-  void navigationToSuccess(bool isSubmitted, String res) {
-    if (isSubmitted) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SuccessVoting()));
-    } else {
-      Container(
-          child: Center(
-        child: Text(res),
-      ));
-    }
-  }
+  // void sendSelectedID(int id, bool selected) async {
+  //   if (selected) {
+  //     var response = await http.post(
+  //       Uri.parse(''),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=utf-8',
+  //       },
+  //       body: jsonEncode(<String, int>{"voterId": id}),
+  //     );
+  //   }
+  // }
 
   List<CandidateGet> _candidates = [];
 
   Future getCandidate() async {
     final response = await http.get(
-        Uri.parse('http://192.168.137.250:1214/api/Candidate/GetAllDetails'));
+        Uri.parse('http://192.168.101.88:1214/api/Candidate/GetAllDetails'));
 
     var jsonDataList = jsonDecode(response.body);
     // print(jsonDataList.toString());
@@ -77,15 +83,7 @@ class _VotingViewState extends State<VotingView> {
           nominatedYear: candidate["nominatedYear"]);
       setState(() {
         _candidates.add(candidates);
-        _candidates.add(candidates);
-        _candidates.add(candidates);
-        _candidates.add(candidates);
-        _candidates.add(candidates);
-        _candidates.add(candidates);
-        _candidates.add(candidates);
       });
-
-      // log(_candidates.length.toString());
     }
   }
 
@@ -124,15 +122,15 @@ class _VotingViewState extends State<VotingView> {
                         itemCount: _candidates.length,
                         itemBuilder: (context, index) {
                           return SelectableCandidate(
+                              _candidates[index].candidateId,
                               _candidates[index].candidateFirstName,
-                              () => checkOption(index),
+                              _candidates[index].candidateLastName,
                               base64Decode(
                                   _candidates[index].candidatePartySymbol),
-                              true);
+                              base64Decode(_candidates[index].candidatePhoto),
+                              index + 1 == optionSelected);
                         }),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(onPressed: () {}, child: const Text("Submit"))
                 ],
               ))),
     );

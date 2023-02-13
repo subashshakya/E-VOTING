@@ -115,7 +115,7 @@ class _NewCandidateState extends State<NewCandidate> {
     log(candidateImage_b64);
 
     final response = await http.post(
-        Uri.parse('http://192.168.137.250:1214/api/Candidate/AddCandidate'),
+        Uri.parse('http://192.168.101.88:1214/api/Candidate/AddCandidate'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8',
         },
@@ -179,7 +179,7 @@ class _NewCandidateState extends State<NewCandidate> {
                 const SizedBox(height: 10),
                 TextField(
                     decoration: const InputDecoration(
-                        labelText: 'Enter Candidate Name'),
+                        labelText: 'Enter Candidate Last Name'),
                     controller: candidateLastName,
                     onSubmitted: (_) => submitData()),
                 const SizedBox(height: 10),

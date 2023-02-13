@@ -68,3 +68,6 @@ C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Debug\net6.0\Neurotec.Licensing.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Debug\net6.0\Neurotec.Media.Processing.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Debug\net6.0\Neurotec.Media.dll
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Debug\net6.0\Neurotec.dll
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Debug\net6.0\EvotingAPI.RazorAssemblyInfo.cache
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Debug\net6.0\EvotingAPI.RazorAssemblyInfo.cs
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Debug\net6.0\FlickrNet.dll

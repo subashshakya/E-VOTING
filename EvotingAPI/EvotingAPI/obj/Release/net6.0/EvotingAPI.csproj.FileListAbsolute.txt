@@ -68,6 +68,7 @@ C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPCtlUruNet.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPCtlXUru.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPUruNet.xml
 C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\DPXUru.xml
+<<<<<<< HEAD
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\Neurotec.Biometrics.dll
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\bin\Release\net6.0\Neurotec.dll
@@ -135,3 +136,7 @@ C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\refint\Evoting
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.pdb
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.genruntimeconfig.cache
 C:\Users\subash\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\ref\EvotingAPI.dll
+=======
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.RazorAssemblyInfo.cache
+C:\Evote\E-VOTING\EvotingAPI\EvotingAPI\obj\Release\net6.0\EvotingAPI.RazorAssemblyInfo.cs
+>>>>>>> 7a8b02d641746b1b2d9b12f74e64034fc76750de

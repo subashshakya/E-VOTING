@@ -15,6 +15,15 @@
           }
         }
       },
+      "FlickrNet/3.26.0": {
+        "type": "package",
+        "compile": {
+          "lib/net20/FlickrNet.dll": {}
+        },
+        "runtime": {
+          "lib/net20/FlickrNet.dll": {}
+        }
+      },
       "Lacuna.Neurotec.Client/2.2.2": {
         "type": "package",
         "compile": {
@@ -819,6 +828,18 @@
         "lib/net5.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "FlickrNet/3.26.0": {
+      "sha512": "JXSl0AJwhgFzWxD2wCYNKTyRw3lKeMYjM9TZ2Srjt55gaMgJ0e68wcs7Y9d7dcWCmeVxf9E7BWYXB/Eh46jzow==",
+      "type": "package",
+      "path": "flickrnet/3.26.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "flickrnet.3.26.0.nupkg.sha512",
+        "flickrnet.nuspec",
+        "lib/net20/FlickrNet.dll"
       ]
     },
     "Lacuna.Neurotec.Client/2.2.2": {
@@ -1937,6 +1958,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Dapper >= 2.0.123",
+      "FlickrNet >= 3.26.0",
       "Lacuna.Neurotec.Client >= 2.2.2",
       "Neuro.Core >= 10.0.169753.1",
       "Neurotec.Biometrics >= 11.2.20200212",
@@ -1989,6 +2011,10 @@
             "target": "Package",
             "version": "[2.0.123, )"
           },
+          "FlickrNet": {
+            "target": "Package",
+            "version": "[3.26.0, )"
+          },
           "Lacuna.Neurotec.Client": {
             "target": "Package",
             "version": "[2.2.2, )"
@@ -2040,5 +2066,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'FlickrNet 3.26.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "FlickrNet",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

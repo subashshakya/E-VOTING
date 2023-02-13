@@ -12,12 +12,14 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Reflection.Metadata;
 using Dapper;
+using System.Net.Http.Headers;
+using FlickrNet;
 
 namespace EvotingAPI.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    
+
     public class CandidateController : Controller
     {
         private readonly string _connstring;
@@ -38,6 +40,7 @@ namespace EvotingAPI.Controllers
             string sql = @"Select * from Candidate";
             var list = _dapperService.Query<CandidateModel>(sql).ToList();
             _logger.LogInformation("Fetching complete");
+<<<<<<< HEAD
             //foreach(var item in list)
             //{
             //    var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
@@ -49,20 +52,35 @@ namespace EvotingAPI.Controllers
             //}
             
             
+=======
+            foreach (var item in list)
+            {
+                var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
+                var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
+                //item.candidatePhoto = "ok";
+                item.candidatePhoto = getCandidatePhoto;
+                //item.candidatePartySymbol = "ok";
+                item.candidatePartySymbol = getCandidatePartySymbol;
+            }
+
+
+>>>>>>> 7a8b02d641746b1b2d9b12f74e64034fc76750de
             return Ok(list);
         }
         [HttpPost]
         [Route("AddCandidate")]
         public bool CreateCandidate([FromBody] CandidateModel model)
         {
+            Image image = null;
             string sql = @"Insert into Candidate values(@CandidateFirstName,@CandidateLastName,@CandidatePartyName,@NominatedYear)";
             _logger.LogInformation("Adding candidate");
             var parameters = _dapperService.AddParam(model);
-            var uploadCandidatePhoto = DecodeBase64String(model.candidatePhoto,"CandidatePhoto",model.candidateFirstName,model.candidateLastName);
-            var uploadCandidatePartySymbol = DecodeBase64String(model.candidatePartySymbol,"CandidatePartySymbol", model.candidateFirstName, model.candidateLastName); 
+            byte[] decodedBytes = Convert.FromBase64String(model.candidatePhoto);
+            var uploadCandidatePhoto = DecodeBase64String(model.candidatePhoto, "CandidatePhoto", model.candidateFirstName, model.candidateLastName);
+            var uploadCandidatePartySymbol = DecodeBase64String(model.candidatePartySymbol, "CandidatePartySymbol", model.candidateFirstName, model.candidateLastName);
             var affectedRows = _dapperService.Execute(sql, parameters);
             _logger.LogInformation("Candidate added");
-           
+
             if (affectedRows <= 0 && !uploadCandidatePhoto && !uploadCandidatePartySymbol)
                 return false;
             else
@@ -99,11 +117,11 @@ namespace EvotingAPI.Controllers
                 return true;
             return false;
         }
-        private bool DecodeBase64String(string encodedString, string FolderName,string FirstName , string LastName)
+        private bool DecodeBase64String(string encodedString, string FolderName, string FirstName, string LastName)
         {
             string FileName = FirstName + LastName + ".jpg";
             byte[] decodedBytes = Convert.FromBase64String(encodedString);
-            
+
             var path = Path.Combine(Directory.GetCurrentDirectory(), FolderName, FileName);
             using (MemoryStream ms = new MemoryStream(decodedBytes))
             {
@@ -113,7 +131,7 @@ namespace EvotingAPI.Controllers
             //System.IO.File.WriteAllBytes(path,decodedBytes);
             return true;
         }
-        private string encodeToBase64(string FirstName , string LastName , string FolderName)
+        private string encodeToBase64(string FirstName, string LastName, string FolderName)
         {
             var fileName = FirstName + LastName + ".jpg";
             string encodedImage = "";
@@ -122,7 +140,6 @@ namespace EvotingAPI.Controllers
             encodedImage = Convert.ToBase64String(filebytes);
             return encodedImage;
         }
-
         //private CandidateModel getCandidateById(int? id)
         //{
         //    string sql = @"Select CandidateFirstName,CandidateLastName from Candidate where CandidateId=@Id";
@@ -144,7 +161,7 @@ namespace EvotingAPI.Controllers
         //    {
         //        return false;
         //    }
-            
+
         //}
 
     }

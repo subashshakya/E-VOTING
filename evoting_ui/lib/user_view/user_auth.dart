@@ -17,24 +17,6 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   bool isAuthenticated = true;
   late bool isVerified = false;
 
-  // // Future isAuthenticatedBool() async {
-  // //   bool authenticate = false;
-  // //   try {
-  // //     authenticate = await auth.authenticate(
-  // //         localizedReason: 'Choose Biometric Options',
-  // //         options: const AuthenticationOptions(biometricOnly: true));
-  // //   } on PlatformException catch (e) {
-  // //     print(e);
-  // //   }
-
-  // //   if (!mounted) return;
-  // //   setState(() {
-  // //     isAuthenticated = authenticate;
-  // //   });
-
-  //   // return isAuthenticated;
-  // }
-
   void navigationToBiometric(int voterId) {
     if (isVerified) {
       Navigator.push(
@@ -55,10 +37,9 @@ class _UserAuthenticationState extends State<UserAuthentication> {
 
     checkInput();
 
-    // if (citizenShipNumber.isEmpty || voterId.isEmpty) return;
     final response = await http.post(
         Uri.parse(
-            'http://192.168.137.250:1214/api/VoterVerification/VerifyVoterId'),
+            'http://192.168.101.88:1214/api/VoterVerification/VerifyVoterId'),
         headers: <String, String>{
           'Content-Type': 'application/json ;charset=utf-8',
         },
@@ -74,12 +55,11 @@ class _UserAuthenticationState extends State<UserAuthentication> {
         isVerified = true;
       });
     }
-    // navigationToBiometric(int.parse(voterId));\
 
     if (isVerified) {
-      biometricValidation();
+      navigationToBiometric(int.parse(voterId));
     } else {
-      Container(child: const Text("Biometric verification is invalid"));
+      _showDialog("VOTER AUTHENTICATION FAILED");
     }
   }
 
@@ -102,11 +82,11 @@ class _UserAuthenticationState extends State<UserAuthentication> {
 
   Future biometricValidation() async {
     var response = await http.post(
-        Uri.parse('http://192.168.1.91:1214/api/Biometric/VerifyFingerPrint'),
+        Uri.parse('http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8',
         },
-        body: jsonEncode(<String, int>{'VoterId': 23563}));
+        body: jsonEncode(<String, int>{'VoterId': int.parse(voterID.text)}));
     var res = response.body.toString();
 
     log(res.toString());
@@ -138,7 +118,8 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   void someFunc() async {
     if (isAuthenticated) {
       var res = await http.post(
-          Uri.parse('http://192.168.1.91:1214/api/Biometric/VerifyFingerPrint'),
+          Uri.parse(
+              'http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=utf-8',
           },
@@ -158,7 +139,12 @@ class _UserAuthenticationState extends State<UserAuthentication> {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
+                  const SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: Image(image: AssetImage('assets/casted.webp'))),
+                  const SizedBox(height: 25),
                   TextField(
                     decoration: const InputDecoration(
                         labelText: 'Enter Your Citizenship Number'),
@@ -173,21 +159,7 @@ class _UserAuthenticationState extends State<UserAuthentication> {
                     keyboardType: TextInputType.number,
                     onSubmitted: (_) => sendData(),
                   ),
-                  // const SizedBox(height: 20),
-                  // Row(
-                  //   children: <Widget>[
-                  //     const Text('Press Biometric Button',
-                  //         style: TextStyle(
-                  //             fontWeight: FontWeight.bold, fontSize: 20)),
-                  //     const SizedBox(width: 20),
-                  //     ElevatedButton(
-                  //         onPressed: isAuthenticatedBool,
-                  //         child: const Text('Biometrics'))
-                  //   ],
-                  // ),
                   const SizedBox(height: 30),
-                  // ElevatedButton(
-                  // onPressed: someFunc, child: Text('this is button')),
                   ElevatedButton(
                       onPressed: sendData, child: const Text('Authenticate'))
                 ],

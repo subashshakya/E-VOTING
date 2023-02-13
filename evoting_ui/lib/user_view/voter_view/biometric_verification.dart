@@ -19,20 +19,29 @@ class BiometricVerification extends StatefulWidget {
 class _BiometricVerificationState extends State<BiometricVerification> {
   late bool isVerified = false;
   int timeLeft = 10;
+  int count = 3;
   Future biometricValidation() async {
-    showTimer();
-    var response = await http.post(
-        Uri.parse('http://192.168.1.91:1214/api/Biometric/VerifyFingerPrint'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: jsonEncode(<String, int>{'VoterId': 789456}));
-    // var res = response.toString();
+    while (!isVerified) {
+      showTimer();
+      var response = await http.post(
+          Uri.parse(
+              'http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+          body: jsonEncode(<String, int>{'VoterId': widget.voterId}));
 
-    log(response.body.toString());
-    if (response.body.toString() == "Verified") {
+      log(response.body.toString());
+      if (response.body.toString() == "Verified") {
+        setState(() {
+          isVerified = true;
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const VotingView()));
+        });
+      }
+      count--;
       setState(() {
-        isVerified = true;
+        timeLeft = 10;
       });
     }
   }
@@ -48,13 +57,6 @@ class _BiometricVerificationState extends State<BiometricVerification> {
       }
     });
   }
-  // void navigatonToVotingScreen() {
-  //   biometricValidation();
-  //   if (isVerified) {
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => VotingView()));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

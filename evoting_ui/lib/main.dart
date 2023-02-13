@@ -23,13 +23,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CandidateProvider(),
-      child: MaterialApp(
+        create: (context) => CandidateProvider(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'E-VOTING',
           theme: darkTheme,
           // lightTheme: lightTheme,
           themeMode: _themeManager.themeMode,
-          home: VotingView()),
-    );
+          home: Admin(),
+        ));
   }
 }
