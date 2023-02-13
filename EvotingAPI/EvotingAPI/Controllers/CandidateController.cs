@@ -45,6 +45,19 @@ namespace EvotingAPI.Controllers
             string sql = @"Select * from Candidate";
             var list = _dapperService.Query<CandidateModel>(sql).ToList();
             _logger.LogInformation("Fetching complete");
+<<<<<<< HEAD
+            //foreach(var item in list)
+            //{
+            //    var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
+            //    var getCandidatePartySymbol = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePartysymbol");
+            //    //item.candidatePhoto = "ok";
+            //    item.candidatePhoto = getCandidatePhoto;
+            //    //item.candidatePartySymbol = "ok";
+            //    item.candidatePartySymbol = getCandidatePartySymbol;
+            //}
+            
+            
+=======
             foreach (var item in list)
             {
                 var getCandidatePhoto = encodeToBase64(item.candidateFirstName, item.candidateLastName, "CandidatePhoto");
@@ -54,6 +67,12 @@ namespace EvotingAPI.Controllers
                 //item.candidatePartySymbol = "ok";
                 item.candidatePartySymbol = getCandidatePartySymbol;
             }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7a8b02d641746b1b2d9b12f74e64034fc76750de
+>>>>>>> 393303cd42ed34ec9b382ea37b9ed0fc1783f2fa
             return Ok(list);
         }
         [HttpPost]

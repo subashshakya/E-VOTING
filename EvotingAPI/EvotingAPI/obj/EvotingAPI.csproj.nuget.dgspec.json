@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj": {}
+    "C:\\Users\\subash\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj": {
+    "C:\\Users\\subash\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj",
+        "projectUniqueName": "C:\\Users\\subash\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj",
         "projectName": "EvotingAPI",
-        "projectPath": "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj",
-        "packagesPath": "C:\\Users\\Nitish Raj\\.nuget\\packages\\",
-        "outputPath": "C:\\Evote\\E-VOTING\\EvotingAPI\\EvotingAPI\\obj\\",
+        "projectPath": "C:\\Users\\subash\\E-VOTING\\EvotingAPI\\EvotingAPI\\EvotingAPI.csproj",
+        "packagesPath": "C:\\Users\\subash\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\subash\\E-VOTING\\EvotingAPI\\EvotingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nitish Raj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\subash\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -116,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
