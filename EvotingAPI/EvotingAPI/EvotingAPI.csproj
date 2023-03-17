@@ -11,15 +11,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="FlickrNet" Version="3.26.0" />
     <PackageReference Include="Lacuna.Neurotec.Client" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.26.1" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.1" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="2.0.1" />
     <PackageReference Include="Neuro.Core" Version="10.0.169753.1" />
     <PackageReference Include="Neurotec.Biometrics" Version="11.2.20200212" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.1" />
   </ItemGroup>
 
   <ItemGroup>
