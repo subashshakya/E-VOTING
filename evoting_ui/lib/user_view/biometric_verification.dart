@@ -3,20 +3,23 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
-import 'package:evoting_ui/user_view/voter_view/voting_list.dart';
+import 'package:get/get.dart';
+import 'package:evoting_ui/user_view/voting_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class BiometricVerification extends StatefulWidget {
   final int voterId;
-  BiometricVerification(this.voterId);
+  String localizationString;
+  BiometricVerification(this.voterId, this.localizationString);
 
   @override
   State<BiometricVerification> createState() => _BiometricVerificationState();
 }
 
 class _BiometricVerificationState extends State<BiometricVerification> {
+  String url = '100.215';
+
   late bool isVerified = false;
   int timeLeft = 10;
   int count = 3;
@@ -24,19 +27,21 @@ class _BiometricVerificationState extends State<BiometricVerification> {
     while (!isVerified) {
       showTimer();
       var response = await http.post(
-          Uri.parse(
-              'http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
+          Uri.parse('http://192.168.$url:1214/api/Biometric/VerifyFingerPrint'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=utf-8',
           },
           body: jsonEncode(<String, int>{'VoterId': widget.voterId}));
 
       log(response.body.toString());
-      if (response.body.toString() == "Verified") {
+      if (response.statusCode == 200) {
         setState(() {
           isVerified = true;
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const VotingView()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VotingView(
+                      response.body.toString(), widget.localizationString)));
         });
       }
       count--;
@@ -61,34 +66,49 @@ class _BiometricVerificationState extends State<BiometricVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white12,
         appBar: AppBar(
-            title: const Text(
-          'Biometric Verification Phase',
-          style: TextStyle(fontSize: 20),
-        )),
+            title: Text(
+              'bio_title'.tr,
+              style: const TextStyle(fontSize: 20),
+            ),
+            automaticallyImplyLeading: false,
+            centerTitle: true),
         body: Container(
           alignment: Alignment.center,
           child: Column(children: <Widget>[
             const SizedBox(height: 50),
-            const Text('Please press the biometric sensor'),
+            // Text(
+            //   'bio_title'.tr,
+            //   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            //   textAlign: TextAlign.center,
+            // ),
+            const SizedBox(height: 50),
+            Text(
+              'press'.tr,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(
               height: 40,
             ),
             const Image(image: AssetImage('assets/th.webp')),
             const SizedBox(height: 40),
             ElevatedButton(
-                onPressed: biometricValidation,
-                child: const Text('Authenticate')),
+                onPressed: biometricValidation, child: Text('auth'.tr)),
             const SizedBox(height: 20),
             Column(children: [
-              const Text("Time left to press biometric Sensor"),
-              const SizedBox(height: 10),
               Text(
-                  timeLeft == 0
-                      ? 'Please press the sensor again'
-                      : timeLeft.toString(),
+                'time_left'.tr,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Text(timeLeft == 0 ? 'press_again'.tr : timeLeft.toString(),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 20))
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold))
             ])
           ]),
         ));

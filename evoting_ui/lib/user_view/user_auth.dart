@@ -1,11 +1,14 @@
 import 'dart:developer';
-import 'package:evoting_ui/user_view/voter_view/biometric_verification.dart';
+import 'package:evoting_ui/user_view/biometric_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:local_auth/local_auth.dart';
+import 'package:get/get.dart';
 
 class UserAuthentication extends StatefulWidget {
+  String localizationLetter;
+  UserAuthentication(this.localizationLetter);
   @override
   State<UserAuthentication> createState() => _UserAuthenticationState();
 }
@@ -16,13 +19,15 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   final voterID = TextEditingController();
   bool isAuthenticated = true;
   late bool isVerified = false;
+  String url = '100.215';
 
   void navigationToBiometric(int voterId) {
     if (isVerified) {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => BiometricVerification(voterId)));
+              builder: (context) =>
+                  BiometricVerification(voterId, widget.localizationLetter)));
     }
   }
 
@@ -33,13 +38,8 @@ class _UserAuthenticationState extends State<UserAuthentication> {
     citizenShipNumber = citizenshipNumber.text;
     voterId = voterID.text;
 
-    log('isWorking');
-
-    checkInput();
-
     final response = await http.post(
-        Uri.parse(
-            'http://192.168.101.88:1214/api/VoterVerification/VerifyVoterId'),
+        Uri.parse('http://192.168.$url:1214/api/Voter/VerifyVoterId'),
         headers: <String, String>{
           'Content-Type': 'application/json ;charset=utf-8',
         },
@@ -49,40 +49,29 @@ class _UserAuthenticationState extends State<UserAuthentication> {
         }));
 
     log(response.body.toString());
+    log(response.statusCode.toString());
 
     if (response.body.toString() == "Verified") {
       setState(() {
         isVerified = true;
       });
-    }
-
-    if (isVerified) {
-      navigationToBiometric(int.parse(voterId));
-    } else {
-      _showDialog("VOTER AUTHENTICATION FAILED");
-    }
-  }
-
-  void checkInput() {
-    final ctz = citizenshipNumber.text;
-    final vt = voterID.text;
-
-    if (ctz.isEmpty || vt.isEmpty) {
-      _showDialog("The Citizenship or VoterID field is empty");
-    } else {
-      if (ctz.length < 10 || ctz.length > 15) {
-        _showDialog("The entered citizenshipID is invalid");
+      if (isVerified) {
+        navigationToBiometric(int.parse(voterId));
+      } else {
+        _showDialog("VOTER AUTHENTICATION FAILED");
       }
-
-      if (voterID.text.length != 6) {
-        _showDialog("VoterID length should be 6 Digits");
-      }
+    }
+    if (response.body.toString() == "Not Verified") {
+      _showDialog('Voter doesnot exist');
+    }
+    if (response.body.toString() == "Voter already Voted") {
+      _showDialog("Voter has already voted");
     }
   }
 
   Future biometricValidation() async {
     var response = await http.post(
-        Uri.parse('http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
+        Uri.parse('http://192.168.$url:1214/api/Biometric/VerifyFingerPrint'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8',
         },
@@ -103,7 +92,7 @@ class _UserAuthenticationState extends State<UserAuthentication> {
         builder: (context) {
           return AlertDialog(
               backgroundColor: Colors.blueGrey,
-              title: const Text('Alert!'),
+              title: Text('alert'.tr),
               content: Text(dialog),
               actions: [
                 MaterialButton(
@@ -115,54 +104,82 @@ class _UserAuthenticationState extends State<UserAuthentication> {
         });
   }
 
-  void someFunc() async {
-    if (isAuthenticated) {
-      var res = await http.post(
-          Uri.parse(
-              'http://192.168.101.88:1214/api/Biometric/VerifyFingerPrint'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=utf-8',
-          },
-          body: jsonEncode(<String, int>{'VoterId': 234563}));
-
-      log(res.body.toString());
-    }
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Authentication')),
+      backgroundColor: Colors.black12,
+      appBar: AppBar(title: Text('auth_title'.tr)),
       body: Card(
           elevation: 10,
           child: Container(
               padding: const EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(height: 30),
-                  const SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: Image(image: AssetImage('assets/casted.webp'))),
-                  const SizedBox(height: 25),
-                  TextField(
-                    decoration: const InputDecoration(
-                        labelText: 'Enter Your Citizenship Number'),
-                    controller: citizenshipNumber,
-                    onSubmitted: (_) => sendData(),
+              child: SingleChildScrollView(
+                child: Form(
+                  child: Column(
+                    children: <Widget>[
+                      const SizedBox(height: 30),
+                      const SizedBox(
+                          height: 100,
+                          width: 100,
+                          child:
+                              Image(image: AssetImage('assets/casted.webp'))),
+                      const SizedBox(height: 25),
+                      Card(
+                          elevation: 5,
+                          child: Text(
+                            'citizenship'.tr,
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.left,
+                          )),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                            labelText: 'XX-XX-XXXXX'),
+                        controller: citizenshipNumber,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "ENTER CITIZENSHIP NUMBER";
+                          }
+                          if (!RegExp(r'^\d{2}-\d{2}-\d{5}$').hasMatch(value)) {
+                            return "INVALID FORMAT";
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 40),
+                      Text(
+                        'voterId'.tr,
+                        style: const TextStyle(fontSize: 20),
+                        textAlign: TextAlign.left,
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                            labelText: 'XXXXXX'),
+                        controller: voterID,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "ENTER VOTER ID";
+                          }
+                          if (!RegExp(r'^\d{6}$').hasMatch(value)) {
+                            return "PLEASE ENTER 6 DIGITS";
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              sendData();
+                            }
+                          },
+                          child: Text('auth'.tr))
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    decoration:
-                        const InputDecoration(labelText: 'Enter Your Voter-ID'),
-                    controller: voterID,
-                    keyboardType: TextInputType.number,
-                    onSubmitted: (_) => sendData(),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                      onPressed: sendData, child: const Text('Authenticate'))
-                ],
+                ),
               ))),
     );
   }

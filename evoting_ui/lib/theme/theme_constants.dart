@@ -33,10 +33,16 @@ ThemeData darkTheme = ThemeData(
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0))),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.yellow[100]!),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
             overlayColor: MaterialStateProperty.all<Color>(Colors.black26))),
     inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
         filled: true,
-        fillColor: Colors.grey.withOpacity(0.1)));
+        fillColor: Colors.grey.withOpacity(0.1)),
+    primarySwatch: Colors.blue,
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.tealAccent[800],
+    splashColor: Colors.blue,
+    cardColor: Colors.black12);
