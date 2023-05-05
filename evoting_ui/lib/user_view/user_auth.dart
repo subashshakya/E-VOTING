@@ -19,7 +19,7 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   final voterID = TextEditingController();
   bool isAuthenticated = true;
   late bool isVerified = false;
-  String url = '100.215';
+  String url = '101.45';
 
   void navigationToBiometric(int voterId) {
     if (isVerified) {
@@ -110,21 +110,30 @@ class _UserAuthenticationState extends State<UserAuthentication> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
-      appBar: AppBar(title: Text('auth_title'.tr)),
+      appBar: AppBar(
+        title: Text('auth_title'.tr),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        titleTextStyle:
+            const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
       body: Card(
           elevation: 10,
           child: Container(
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     children: <Widget>[
                       const SizedBox(height: 30),
                       const SizedBox(
                           height: 100,
                           width: 100,
-                          child:
-                              Image(image: AssetImage('assets/casted.webp'))),
+                          child: Image(
+                            image: AssetImage('assets/casted.webp'),
+                            color: Colors.white70,
+                          )),
                       const SizedBox(height: 25),
                       Card(
                           elevation: 5,
@@ -161,6 +170,7 @@ class _UserAuthenticationState extends State<UserAuthentication> {
                         controller: voterID,
                         keyboardType: TextInputType.number,
                         validator: (value) {
+                          log(voterID.toString());
                           if (value == null || value.isEmpty) {
                             return "ENTER VOTER ID";
                           }

@@ -13,7 +13,7 @@ class UserRegistration extends StatefulWidget {
 }
 
 class _UserRegistrationState extends State<UserRegistration> {
-  String url = '100.215';
+  String url = '101.45';
 
   final voterId = TextEditingController();
   final citizenShipId = TextEditingController();
@@ -282,7 +282,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         if (value == null || value.isEmpty) {
                           return "PLEASE ENTER GENDER";
                         }
-                        if (!RegExp(r'^(Male|Female)$').hasMatch(value)) {
+                        if (!RegExp(r'^(male|female)$').hasMatch(value)) {
                           return "ENTERED VALUE CONTAINS UNWANTED CHARACTERS";
                         }
                       },
@@ -372,7 +372,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                           return "PLEASE ENTER A WARD NUMBER";
                         }
                         if (!RegExp(r'^([1-9]|1[0-9]|22)$').hasMatch(value)) {
-                          return "ENTER A VALUE WITHIN 1-20";
+                          return "ENTER A VALUE WITHIN 1-22";
                         }
                       },
                     ),

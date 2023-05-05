@@ -19,7 +19,7 @@ class _ElectionListWidgetState extends State<ElectionListWidget> {
   ];
 
   List<ElectionList> _fetchedData = [];
-  String url = '100.215';
+  String url = '101.45';
   Future getElectionList() async {
     var response = await http.get(
         Uri.parse('http://192.168.$url:1214/api/Election/GetElection'),

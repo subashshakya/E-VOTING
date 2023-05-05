@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import './view_only_candidate_list.dart';
 import '../../real_time_votecount/rt_vote_count.dart';
-import './piechart.dart';
+// import './piechart.dart';
 
 class AdminPannel extends StatefulWidget {
   String token;
@@ -61,14 +61,14 @@ class _AdminPannelState extends State<AdminPannel> {
                         child: RealTimeVoteCount(widget.token)),
                   ],
                 )),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PieChartPage(widget.token)));
-                },
-                child: const Text("View Voting Details"))
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => PieChartPage(widget.token)));
+            //     },
+            //     child: const Text("View Voting Details"))
           ],
         )),
       ),

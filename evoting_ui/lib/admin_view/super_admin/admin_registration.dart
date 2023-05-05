@@ -14,7 +14,7 @@ class _AdminRegistrationState extends State<AdminRegistration> {
   final password = TextEditingController();
   final rePassword = TextEditingController();
 
-  String url = '100.215';
+  String url = '101.45';
 
   void _showDialog(String dialog) {
     showDialog(

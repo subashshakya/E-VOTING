@@ -31,7 +31,7 @@ class ShowCandidate extends StatefulWidget {
 
 class _ShowCandidateState extends State<ShowCandidate> {
   int voteprediction = 0;
-  String url = '100.215';
+  String url = '101.45';
 
   @override
   initState() {

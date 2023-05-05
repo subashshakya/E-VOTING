@@ -35,7 +35,7 @@ class SubMayorSelectableCandidate extends StatefulWidget {
 
 class _SelectableCandidateState extends State<SubMayorSelectableCandidate> {
   bool confirmation = false;
-  String url = '100.215';
+  String url = '101.45';
   String encryptedVotingDetails = '';
 
   Future sendVote() async {
@@ -108,40 +108,50 @@ class _SelectableCandidateState extends State<SubMayorSelectableCandidate> {
                 child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white38),
+                        color: Colors.black54),
                     padding: const EdgeInsets.all(15),
-                    width: 400,
-                    height: 320,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.47,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(candidateFirstName,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const SizedBox(
-                              width: 3,
-                            ),
-                            Text(candidateLastName,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                            const SizedBox(width: 125),
-                            MaterialButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Icon(Icons.cancel_outlined,
-                                    size: 30, color: Colors.red))
-                          ],
+                        Container(
+                          color: Colors.black,
+                          child: Row(
+                            children: <Widget>[
+                              Text(candidateFirstName,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Text(candidateLastName,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(width: 140),
+                              MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Icon(Icons.cancel_outlined,
+                                      size: 40, color: Colors.red))
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
+                        const Divider(
+                          color: Colors.white,
+                          thickness: 4,
+                        ),
+                        const SizedBox(height: 10),
                         Row(
                           children: <Widget>[
                             Text('photo_candidate'.tr,
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold)),
-                            const SizedBox(width: 57),
+                            const SizedBox(width: 70),
                             Image.memory(candidatePhoto,
                                 height: 75, width: 75, fit: BoxFit.cover)
                           ],
@@ -159,7 +169,12 @@ class _SelectableCandidateState extends State<SubMayorSelectableCandidate> {
                                 height: 75, width: 75, fit: BoxFit.cover)
                           ],
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 30),
+                        const Divider(
+                          color: Colors.white,
+                          thickness: 3,
+                        ),
+                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () {
                               showDialog(

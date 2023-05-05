@@ -18,7 +18,7 @@ class BiometricVerification extends StatefulWidget {
 }
 
 class _BiometricVerificationState extends State<BiometricVerification> {
-  String url = '100.215';
+  String url = '101.45';
 
   late bool isVerified = false;
   int timeLeft = 10;
@@ -68,12 +68,15 @@ class _BiometricVerificationState extends State<BiometricVerification> {
     return Scaffold(
         backgroundColor: Colors.white12,
         appBar: AppBar(
-            title: Text(
-              'bio_title'.tr,
-              style: const TextStyle(fontSize: 20),
-            ),
-            automaticallyImplyLeading: false,
-            centerTitle: true),
+          title: Text(
+            'bio_title'.tr,
+            style: const TextStyle(fontSize: 20),
+          ),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          titleTextStyle:
+              const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         body: Container(
           alignment: Alignment.center,
           child: Column(children: <Widget>[

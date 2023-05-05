@@ -22,7 +22,7 @@ class _ResultState extends State<Result> {
     // ElectionResult("candidateFirstName", "candidateLastName",
     //     "candidatePartyName", "year", 12345, "postName"),
   ];
-  String url = '100.215';
+  String url = '101.45';
 
   Future getResult() async {
     log(widget.token);
@@ -44,7 +44,7 @@ class _ResultState extends State<Result> {
           res["voteReceived"],
           res["postName"]);
 
-      // log(result.candidatePartyName);
+      log(result.candidatePartyName);
       setState(() {
         _results.add(result);
       });

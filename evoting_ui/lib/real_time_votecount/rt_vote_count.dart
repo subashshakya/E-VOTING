@@ -17,7 +17,7 @@ class _RealTimeVoteCountState extends State<RealTimeVoteCount> {
   );
   int count = 0;
 
-  String url = '100.215';
+  String url = '101.45';
 
   @override
   void initState() {

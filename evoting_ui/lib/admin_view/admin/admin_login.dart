@@ -17,7 +17,7 @@ class _AdminLoginPannelState extends State<AdminLoginPannel> {
   final adminPassWord = TextEditingController();
 
   bool isAuthenticated = false;
-  String url = '100.215';
+  String url = '101.45';
 
   String token = '';
   Future authenticate() async {
@@ -42,7 +42,7 @@ class _AdminLoginPannelState extends State<AdminLoginPannel> {
         isAuthenticated = true;
 
         token = auth.token;
-        log(token);
+        // log(token);
       });
 
       navigationToAdminDashBoard();
@@ -72,54 +72,68 @@ class _AdminLoginPannelState extends State<AdminLoginPannel> {
         body: Card(
             elevation: 10,
             child: Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(children: <Widget>[
-                const SizedBox(height: 100),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  color: Colors.grey,
-                  width: MediaQuery.of(context).size.width,
-                  child: const Text("Admin Authentication",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  "Enter Your Username",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                const SizedBox(height: 5),
-                TextField(
-                  decoration: const InputDecoration(labelText: 'Username'),
-                  controller: adminUserName,
-                  onSubmitted: (_) => authenticate(),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "Enter Your Password",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                const SizedBox(height: 5),
-                TextField(
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  controller: adminPassWord,
-                  onSubmitted: (_) => authenticate(),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                    onPressed: authenticate, child: const Text("Authenticate"))
-              ]),
-            )));
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 90),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
+                      color: Colors.grey,
+                      width: MediaQuery.of(context).size.width,
+                      child: const Text("Admin Authentication",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
+                      child: SingleChildScrollView(
+                        child: Card(
+                          elevation: 0,
+                          child: Column(children: [
+                            const SizedBox(height: 18),
+                            const Text(
+                              "Enter Your Username",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: 5),
+                            TextField(
+                              decoration:
+                                  const InputDecoration(labelText: 'Username'),
+                              controller: adminUserName,
+                              onSubmitted: (_) => authenticate(),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              "Enter Your Password",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: 5),
+                            TextField(
+                              obscureText: true,
+                              decoration:
+                                  const InputDecoration(labelText: 'Password'),
+                              controller: adminPassWord,
+                              onSubmitted: (_) => authenticate(),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                                onPressed: authenticate,
+                                child: const Text("Authenticate"))
+                          ]),
+                        ),
+                      ),
+                    )
+                  ],
+                ))));
   }
 }

@@ -20,7 +20,7 @@ class CandidateList extends StatefulWidget {
 
 class _CandidateListState extends State<CandidateList> {
   final isInit = false;
-  String url = '100.215';
+  String url = '101.45';
   List<CandidatePost> _candidatePosts = [];
 
   Future getCandidatePostInfo() async {

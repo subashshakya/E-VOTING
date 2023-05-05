@@ -35,7 +35,7 @@ class _NewCandidateState extends State<NewCandidate> {
   final nominatedYearRomanized = TextEditingController();
   final nominatedYear = TextEditingController();
 
-  String url = '100.215';
+  String url = '101.45';
 
   List<CandidatePost> _candidatePosts = [];
 
@@ -321,7 +321,8 @@ class _NewCandidateState extends State<NewCandidate> {
                                 if (value == null || value.isEmpty) {
                                   return "PLEASE ENTER A PARTY NAME";
                                 }
-                                if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
+                                if (!RegExp(r'^[a-zA-Z\s\p{P}]+$')
+                                    .hasMatch(value)) {
                                   return "ENTERED VALUE HAS INVALID CHARACTERS";
                                 }
                               },
